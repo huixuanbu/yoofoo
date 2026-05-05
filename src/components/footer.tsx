@@ -1,22 +1,50 @@
-import Link from "next/link";
+"use client";
+
+import { useAppStore } from "@/lib/store";
+import { t } from "@/i18n";
 
 export function Footer() {
+  const { locale } = useAppStore();
+
   return (
-    <footer className="border-t bg-white py-8 mt-12">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-red-600">有福</span>
-            <span className="text-sm text-muted-foreground">Yoofoo</span>
+    <footer className="border-t bg-gray-50">
+      <div className="mx-auto max-w-6xl px-4 py-10">
+        <div className="grid gap-8 md:grid-cols-3">
+          {/* Brand */}
+          <div>
+            <h3 className="text-lg font-bold text-red-600">
+              {locale === 'zh' ? '有福' : 'Yoofoo'}
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {t(locale, 'footer.aboutDesc')}
+            </p>
           </div>
-          <p className="text-xs text-muted-foreground">
-            向世界讲好中国故事 · Discover the best of Chinese entertainment
-          </p>
-          <div className="flex gap-4 text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-red-600 transition-colors">Home</Link>
-            <Link href="/tv" className="hover:text-red-600 transition-colors">TV Drama</Link>
-            <Link href="/movie" className="hover:text-red-600 transition-colors">Movies</Link>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-sm font-semibold">{t(locale, 'footer.quickLinks')}</h4>
+            <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+              <li><a href="/" className="hover:text-red-600">{t(locale, 'home')}</a></li>
+              <li><a href="/tv" className="hover:text-red-600">{t(locale, 'tvDramas')}</a></li>
+              <li><a href="/movie" className="hover:text-red-600">{t(locale, 'movies')}</a></li>
+              <li><a href="/search" className="hover:text-red-600">{t(locale, 'search')}</a></li>
+            </ul>
           </div>
+
+          {/* Resources */}
+          <div>
+            <h4 className="text-sm font-semibold">{t(locale, 'footer.resources')}</h4>
+            <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+              <li><a href="#" className="hover:text-red-600">{t(locale, 'footer.help')}</a></li>
+              <li><a href="#" className="hover:text-red-600">{t(locale, 'footer.terms')}</a></li>
+              <li><a href="#" className="hover:text-red-600">{t(locale, 'footer.privacy')}</a></li>
+              <li><a href="#" className="hover:text-red-600">{t(locale, 'footer.contact')}</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-8 border-t pt-6 text-center text-xs text-muted-foreground">
+          © {new Date().getFullYear()} {locale === 'zh' ? '有福' : 'Yoofoo'}. {t(locale, 'footer.rights')}
         </div>
       </div>
     </footer>
